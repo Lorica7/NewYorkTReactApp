@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-// import API from "../utils/API";
+import API from "../utils/API";
 
-// import SearchForm from "../components/Search";
+import SearchForm from "../components/Search";
 
-// import Header from "../components/Header";
+import Header from "../components/Header";
 
 
 class Articles extends Component {

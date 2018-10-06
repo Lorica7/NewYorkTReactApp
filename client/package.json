@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "secure": false,
-  "proxy": "https://localhost:5002",
+  "proxy": {
+    "/api/*":  {
+      "target": "http://localhost:3001/",
+      "secure": false
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.3",
@@ -16,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
