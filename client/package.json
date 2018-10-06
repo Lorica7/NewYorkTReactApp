@@ -3,12 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "secure": false,
-  "proxy": {
-    "/api/*":  {
-      "target": "http://localhost:3001/",
-      "secure": false
-    }
-  },
+  "proxy": "http://localhost:3001/",
+    
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.3",

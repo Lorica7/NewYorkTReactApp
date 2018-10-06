@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 
 import API from "../utils/API";
-
-import SearchForm from "../components/Search";
-
+import SaveBtn from "../components/SaveBtn";
+// import DeleteBtn from "../components/DeleteButton";
+import Results from "../components/Results";
 import Header from "../components/Header";
+import ResultList from "../components/ResultList";
 
 
 class Articles extends Component {
@@ -16,30 +17,35 @@ class Articles extends Component {
     end: ""
   };
 
-  // componentDidMount() {
-  //   this.loadArticles();
+  componentDidMount() {
+    this.loadArticles();
+  }
+
+  loadArticles = () => {
+    API.getArticles()
+      .then(res =>
+        this.setState({ saved: res.data })
+      )
+      .catch(err => console.log(err));
+  };
+
+  deleteArticles = id => {
+    API.deleteArticle(id)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
+
+  saveArticles = id => {
+    console.log("saving Article")
+    API.saveArticle(id)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
+
+ 
+  // handleChange(event) {
+  //   this.setState({query: event.target.query});
   // }
-
-  // loadArticles = () => {
-  //   API.getArticles()
-  //     .then(res =>
-  //       this.setState({ saved: res.data })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // deleteArticles = id => {
-  //   API.deleteArticle(id)
-  //     .then(res => this.loadArticles())
-  //     .catch(err => console.log(err));
-  // };
-
-  // saveArticles = id => {
-  //   console.log("saving Article")
-  //   API.saveArticle(id)
-  //     .then(res => this.loadArticles())
-  //     .catch(err => console.log(err));
-  // };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -53,21 +59,10 @@ class Articles extends Component {
     this.searchTopics(this.state.query);
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
-  };
 
   searchTopics = query => {
     console.log("Searching!!!")
+    console.log(this.state.query)
      API.search(this.state.query)
       .then(res => this.setState({ articles: res.data }))
       .catch(err => console.log(err));
@@ -78,13 +73,50 @@ class Articles extends Component {
     return (
       <div>
         <Header />
-        <SearchForm
-          value={this.state.query}
-          handleInputChange={this.handleInputChange}
-          handleFormSubmit={this.handleFormSubmit}
-        />
+        <div className="card">
+        <div className="card-body">
+            <form>
+                <div className="form-group">
+                    <label htmlFor="search">Search:</label>
+                    <input
+                        onChange={this.handleInputChange}
+                        value={this.state.query}
+                        name="search"
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="Topic"
+                        id="search"
+                    />
+                    <br />
+                    <input
+                        onChange={this.handleInputChange}
+                        value={this.state.query1}
+                        name="search"
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="Start Year"
+                        id="search"
+                    />
+                    <input
+                        onChange={this.handleInputChange}
+                        value={this.state.query2}
+                        name="search"
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="End Year"
+                        id="search"
+                    />
+                    <button
+                        onClick={this.handleFormSubmit}
+                        className="btn btn-info">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        {/* <div>
+        <div>
           {!this.state.articles.length ? (
             <h1 className="text-center">No Articles Found</h1>)
          : (
@@ -104,7 +136,7 @@ class Articles extends Component {
                 })}
               </ResultList>
             )}
-        </div> */}
+        </div>
         {/* <div>
         <h1>Saved Articles</h1>
         <div>
