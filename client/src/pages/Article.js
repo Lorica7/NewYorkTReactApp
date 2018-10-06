@@ -5,6 +5,7 @@ import SaveBtn from "../components/SaveBtn";
 import Results from "../components/Results";
 import Header from "../components/Header";
 import ResultList from "../components/ResultList";
+import SearchForms from "../components/SearchForms";
 
 
 class Articles extends Component {
@@ -58,7 +59,16 @@ class Articles extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     this.searchTopics(this.state.search);
+    this.setState({
+      articles: [],
+      saved: [],
+      search: "",
+      startYear: "",
+      endYear: ""
+    });
+    
   };
+  
 
 
   searchTopics = search => {
@@ -74,7 +84,7 @@ class Articles extends Component {
     return (
       <div>
         <Header />
-        <SearchForm
+        <SearchForms
           search={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
@@ -124,7 +134,7 @@ class Articles extends Component {
             </div> */}
       {/* </div> */}
     )</div>
-  )}
+  )};
 
 };
 
