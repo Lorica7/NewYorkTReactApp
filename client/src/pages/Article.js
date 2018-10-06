@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import API from "../utils/API";
 import SaveBtn from "../components/SaveBtn";
 // import DeleteBtn from "../components/DeleteButton";
@@ -9,14 +8,16 @@ import ResultList from "../components/ResultList";
 
 
 class Articles extends Component {
-  state = {
+    constructor (){
+    super();
+    this.state = {
     articles: [],
     saved: [],
-    query: "",
-    start: "",
-    end: ""
+    search: "",
+    startYear: "",
+    endYear: ""
   };
-
+}
   componentDidMount() {
     this.loadArticles();
   }
@@ -51,19 +52,19 @@ class Articles extends Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value
-    });
+    })
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    this.searchTopics(this.state.query);
+    this.searchTopics(this.state.search);
   };
 
 
-  searchTopics = query => {
+  searchTopics = search => {
     console.log("Searching!!!")
-    console.log(this.state.query)
-     API.search(this.state.query)
+    console.log(this.state.search)
+     API.search(search)
       .then(res => this.setState({ articles: res.data }))
       .catch(err => console.log(err));
   };
@@ -73,48 +74,11 @@ class Articles extends Component {
     return (
       <div>
         <Header />
-        <div className="card">
-        <div className="card-body">
-            <form>
-                <div className="form-group">
-                    <label htmlFor="search">Search:</label>
-                    <input
-                        onChange={this.handleInputChange}
-                        value={this.state.query}
-                        name="search"
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Topic"
-                        id="search"
-                    />
-                    <br />
-                    <input
-                        onChange={this.handleInputChange}
-                        value={this.state.query1}
-                        name="search"
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Start Year"
-                        id="search"
-                    />
-                    <input
-                        onChange={this.handleInputChange}
-                        value={this.state.query2}
-                        name="search"
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="End Year"
-                        id="search"
-                    />
-                    <button
-                        onClick={this.handleFormSubmit}
-                        className="btn btn-info">
-                        Search
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+        <SearchForm
+          search={this.state.search}
+          handleFormSubmit={this.handleFormSubmit}
+          handleInputChange={this.handleInputChange}
+        />
 
         <div>
           {!this.state.articles.length ? (
@@ -161,6 +125,7 @@ class Articles extends Component {
       {/* </div> */}
     )</div>
   )}
+
 };
 
 
