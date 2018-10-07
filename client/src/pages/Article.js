@@ -45,10 +45,6 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
- 
-  // handleChange(event) {
-  //   this.setState({query: event.target.query});
-  // }
 
   handleInputChange = event => {
     const { name, value } = event.target;

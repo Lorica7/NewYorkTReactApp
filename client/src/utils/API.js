@@ -28,15 +28,3 @@ search: function(query) {
   }
 
 }
-// router.route("api/articles", (req, res) => {
-  //   axios
-  //     .get(BASEURL, { params: req.query }, APIKEY )
-  //     .then(({ data: { res } }) => res.json(res))
-  //     console.log(res)
-  //     .catch(err => res.status(422).json(err));
-  // });
-
-
-//   app.get("/scrape", (req, res) => {
-//     // First, we grab the body of the html with request
-// axios.get(").then(response => {
