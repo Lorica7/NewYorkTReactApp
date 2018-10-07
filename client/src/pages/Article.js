@@ -9,16 +9,17 @@ import SearchForms from "../components/SearchForms";
 
 
 class Articles extends Component {
-  constructor() {
+  
+    constructor (){
     super();
     this.state = {
-      articles: [],
-      saved: [],
-      search: "",
-      startYear: "",
-      endYear: ""
-    };
-  }
+    articles: [],
+    saved: [],
+    search: "",
+    startYear: "",
+    endYear: ""
+  };
+}
   componentDidMount() {
     this.loadArticles();
   }
@@ -44,7 +45,7 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-
+ 
   // handleChange(event) {
   //   this.setState({query: event.target.query});
   // }
@@ -66,30 +67,18 @@ class Articles extends Component {
       startYear: "",
       endYear: ""
     });
-
+    
   };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    console.log("Getting NYT Articles");
-    console.log("this.state.query: ", this.state.query);
-    console.log("this.state.begin: ", this.state.begin);
-    console.log("this.state.end: ", this.state.end);
-    API.getArticles(this.state.query, this.state.begin, this.state.end)
-      .then((res) => {
-        this.setState({ articles: res.data.response.docs });
-        console.log("this.state.articles: ", this.state.articles);
-      });
-
-  };
+  
 
   searchTopics = search => {
     console.log("Searching!!!")
     console.log(this.state.search)
-    API.search(this.state.search)
+     API.search(search)
       .then(res => this.setState({ articles: res.data }))
       .catch(err => console.log(err));
   };
+
 
 
   render() {

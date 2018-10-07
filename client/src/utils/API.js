@@ -6,7 +6,14 @@ export default {
 
  
 search: function(query) {
-      return axios.get(BASEURL + query + "&api-key=" + APIKEY);
+  axios.get(BASEURL + query + "&api-key=" + APIKEY)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+    
   },
 
   getArticles: function () {
@@ -28,3 +35,8 @@ search: function(query) {
   //     console.log(res)
   //     .catch(err => res.status(422).json(err));
   // });
+
+
+//   app.get("/scrape", (req, res) => {
+//     // First, we grab the body of the html with request
+// axios.get(").then(response => {
