@@ -1,11 +1,14 @@
 import React from "react";
 
 
- const ResultList = props => (
-  <div class="card">
-    <div className="card-body">
-      <ul className="list-group">{props.children}</ul>
+const ResultList = ({ children }) => {
+  return (
+    <div class="card">
+      <div className="card-body">
+        <ul className="list-group">
+          {children}</ul>
+      </div>
     </div>
-  </div>
-);
+  );
+}
 export default ResultList;

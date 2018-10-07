@@ -1,17 +1,17 @@
-import React from "react";
-import SaveBtn from "./SaveBtn";
 
+import SaveBtn from "./SaveBtn";
+import React from "react";
 
 
 const Results = props => (
+
+  <div className="container">
+ 
   <li className="list-group-item">
-          <h3>{props.title}</h3>
-          
-          <a rel="noreferrer noopener" target="_blank" href={props.url}>
-            Go to article
-          </a>
-          <SaveBtn/>
+    {props.children}
+    <SaveBtn/>
   </li>
+  </div>
 );
 
 export default Results;

@@ -5,15 +5,20 @@
 
 // mongoose.connect(
 //   process.env.MONGODB_URI ||
-//   "mongodb://localhost/reactreadinglist"
+//   "mongodb://localhost/NewYorkTReactapp"
 // );
 
-// // const articleSeed = [
+// // const articleSeed = [ 
+//     title: "New York Times Article",
+//     url: "link",
+//     datePub: Date,
+//     notes: "words"
+// ]
  
 
 // db.Article
 //   .remove({})
-//   .then(() => db.Book.collection.insertMany(articleSeed))
+//   .then(() => db.Article.collection.insertMany(articleSeed))
 //   .then(data => {
 //     console.log(data.result.n + " records inserted!");
 //     process.exit(0);

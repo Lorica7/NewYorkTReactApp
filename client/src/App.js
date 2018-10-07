@@ -9,6 +9,7 @@ const App = () => (
  <Router>
     <div className="continater-fluid">
       <Route exact path = '/' component = {Article}/>
+    
     </div>
     </Router>
 );

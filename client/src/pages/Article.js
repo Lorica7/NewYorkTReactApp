@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-import SaveBtn from "../components/SaveBtn";
+
 // import DeleteBtn from "../components/DeleteButton";
 import Results from "../components/Results";
 import Header from "../components/Header";
@@ -9,16 +9,16 @@ import SearchForms from "../components/SearchForms";
 
 
 class Articles extends Component {
-    constructor (){
+  constructor() {
     super();
     this.state = {
-    articles: [],
-    saved: [],
-    search: "",
-    startYear: "",
-    endYear: ""
-  };
-}
+      articles: [],
+      saved: [],
+      search: "",
+      startYear: "",
+      endYear: ""
+    };
+  }
   componentDidMount() {
     this.loadArticles();
   }
@@ -44,7 +44,7 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
- 
+
   // handleChange(event) {
   //   this.setState({query: event.target.query});
   // }
@@ -66,15 +66,27 @@ class Articles extends Component {
       startYear: "",
       endYear: ""
     });
-    
-  };
-  
 
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    console.log("Getting NYT Articles");
+    console.log("this.state.query: ", this.state.query);
+    console.log("this.state.begin: ", this.state.begin);
+    console.log("this.state.end: ", this.state.end);
+    API.getArticles(this.state.query, this.state.begin, this.state.end)
+      .then((res) => {
+        this.setState({ articles: res.data.response.docs });
+        console.log("this.state.articles: ", this.state.articles);
+      });
+
+  };
 
   searchTopics = search => {
     console.log("Searching!!!")
     console.log(this.state.search)
-     API.search(search)
+    API.search(this.state.search)
       .then(res => this.setState({ articles: res.data }))
       .catch(err => console.log(err));
   };
@@ -93,23 +105,25 @@ class Articles extends Component {
         <div>
           {!this.state.articles.length ? (
             <h1 className="text-center">No Articles Found</h1>)
-         : (
+            : (
               <ResultList>
-                {this.state.articles.map(article=> {
+                {this.state.articles.map(article => {
                   return (
-                    <div>
                     <Results
+                      _id={article._id}
                       key={article._id}
-                      title={article.title}
-                      url={article.url}
-                      datePub={article.datePub}
+                      title={article.headline.main}
+                      date={article.pub_date}
+                      url={article.web_url}
+                      // snippet={article.snippet}
+                      // handleSaveButton={this.handleSaveButton}
                     />
-                    <SaveBtn onClick={() => this.saveArticles(article._id)} />
-                  </div>
-                  )
-                })}
+                  );
+                })}   
+            )
+          })}
               </ResultList>
-            )}
+        )}
         </div>
         {/* <div>
         <h1>Saved Articles</h1>
@@ -132,9 +146,10 @@ class Articles extends Component {
             )}
           };
             </div> */}
-      {/* </div> */}
-    )</div>
-  )};
+    {/* </div> */ }
+    )</div >
+  )
+  };
 
 };
 

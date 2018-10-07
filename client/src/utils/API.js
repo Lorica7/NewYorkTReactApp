@@ -5,7 +5,7 @@ const APIKEY = "f3e1b0323f464751a8bf08e2474e3a4d";
 export default {
 
  
-    search: function(query) {
+search: function(query) {
       return axios.get(BASEURL + query + "&api-key=" + APIKEY);
   },
 
@@ -21,4 +21,10 @@ export default {
   }
 
 }
-  
+// router.route("api/articles", (req, res) => {
+  //   axios
+  //     .get(BASEURL, { params: req.query }, APIKEY )
+  //     .then(({ data: { res } }) => res.json(res))
+  //     console.log(res)
+  //     .catch(err => res.status(422).json(err));
+  // });
