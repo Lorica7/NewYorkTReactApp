@@ -1,3 +1,6 @@
+
+const Saved = props => (
+
 <Col size="md-6 sm-12">
 <Jumbotron>
   <h1>Saved Articles</h1>
@@ -19,3 +22,6 @@
   <h3>No Results to Display</h3>
 )}
 </Col>
+)
+
+export default Saved;

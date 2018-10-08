@@ -9,18 +9,18 @@ import SearchForms from "../components/SearchForms";
 
 
 class Articles extends Component {
-  
-    constructor (){
+
+  constructor() {
     super();
     this.state = {
-    articles: [],
-    saved: [],
-    search: "",
-    startYear: "",
-    endYear: ""
-  };
-}
-  componentDidMount() {
+      articles: [],
+      saved: [],
+      search: "",
+      startYear: "",
+      endYear: ""
+    };
+  }
+  componentDidMount = () => {
     this.loadArticles();
   }
 
@@ -45,6 +45,11 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
+  // saveArticles = id => {
+  //   const article = this.state.articles.find(article =>
+  //     article._API.saveArticle(articles).then(res => this.getArticles()));  
+  // };
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -53,62 +58,68 @@ class Articles extends Component {
     })
   };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
-    this.searchTopics(this.state.search);
-    this.setState({
-      articles: [],
-      saved: [],
-      search: "",
-      startYear: "",
-      endYear: ""
-    });
-    
-  };
-  
-
-  searchTopics = search => {
-    console.log("Searching!!!")
-    console.log(this.state.search)
-     API.search(search)
-      .then(res => this.setState({ articles: res.data }))
-      .catch(err => console.log(err));
+    this.searchArticles();
   };
 
 
+  // searchTopics = search => {
+  //   console.log("Searching!!!")
+  //   console.log(this.state.search)
+  //    API.search(search)
+  //     .then(res => this.setState({ articles: res.data }))
+  //     .catch(err => console.log(err));
+  // };
+
+  searchArticles = () => {
+    API.search({
+      search: this.state.search,
+      startYear: this.state.startYear,
+      endYear: this.state.endYear
+    })
+      .then(res => this.setState({
+        articles: res.data,
+        alert: !res.data.length
+          ? "No Articles Found" : ""
+      })
+      ).catch(err => console.log(err));
+  };
 
   render() {
     return (
       <div>
         <Header />
         <SearchForms
-          search={this.state.search}
-          handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
+          search={this.state.search}
+          startYear={this.state.startYear}
+          endYear={this.state.endYear}
+          handleFormSubmit={this.handleFormSubmit}
+
         />
 
         <div>
-          {!this.state.articles.length ? (
-            <h1 className="text-center">No Articles Found</h1>)
-            : (
-              <ResultList>
-                {this.state.articles.map(article => {
-                  return (
-                    <Results
-                      _id={article._id}
-                      key={article._id}
-                      title={article.headline.main}
-                      date={article.pub_date}
-                      url={article.web_url}
-                      // snippet={article.snippet}
-                      // handleSaveButton={this.handleSaveButton}
-                    />
-                  );
-                })}   
-            )
-          })}
+          {this.state.articles.length ? (
+            <ResultList>
+              {this.state.articles.map(article => (
+               
+                  <Results
+                  key={article._id}
+                    _id={article._id}
+                    title={article.headline.main}
+                    date={article.pub_date}
+                    url={article.web_url}
+                    // snippet={article.snippet}
+                    handleSaveButton={this.handleSaveButton}
+                  />
+                )
+              )}
               </ResultList>
-        )}
+              ) : ( 
+                <h3>No Results to Display</h3>
+              )} 
+)}
         </div>
         {/* <div>
         <h1>Saved Articles</h1>
@@ -127,13 +138,13 @@ class Articles extends Component {
               ))}
             </List>
           ) : (
-              <h3>No Results to Display</h3>
+              
             )}
           };
             </div> */}
-    {/* </div> */ }
-    )</div >
-  )
+        {/* </div> */}
+        )</div >
+    )
   };
 
 };

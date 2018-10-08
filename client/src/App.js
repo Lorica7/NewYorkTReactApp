@@ -1,17 +1,21 @@
- import React from "react";
-
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from "react";
+import Saved from "./components/Saved.js";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Article from "./pages/Article";
+import NotFound from "./components/NotFound.js";
 
 const App = () => (
 
-  
- <Router>
+
+  <Router>
     <div className="continater-fluid">
-      <Route exact path = '/' component = {Article}/>
-    
+      <Switch>
+        <Route exact path='/' component={Article} />
+        <Route exact path="/saved" component={Saved} />
+        <Route component ={NotFound} />
+      </Switch>
     </div>
-    </Router>
+  </Router>
 );
- 
+
 export default App;
