@@ -1,5 +1,5 @@
 
-import SaveBtn from "./SaveBtn";
+
 import React from "react";
 
 
@@ -9,7 +9,7 @@ const Results = props => (
  
   <li className="list-group-item">
     {props.children}
-    <SaveBtn/>
+   
   </li>
   </div>
 );

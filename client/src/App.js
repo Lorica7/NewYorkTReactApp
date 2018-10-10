@@ -1,8 +1,8 @@
 import React from "react";
-import Saved from "./components/Saved.js";
+import Saved from "./pages/Saved.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Article from "./pages/Article";
-import NotFound from "./components/NotFound.js";
+// import NotFound from "./components/NotFound.js";
 
 const App = () => (
 
@@ -12,7 +12,7 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={Article} />
         <Route exact path="/saved" component={Saved} />
-        <Route component ={NotFound} />
+        {/* <Route component ={NotFound} /> */}
       </Switch>
     </div>
   </Router>

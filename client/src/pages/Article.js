@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 
-// import DeleteBtn from "../components/DeleteButton";
+// importing components // 
+
 import Results from "../components/Results";
 import Header from "../components/Header";
 import ResultList from "../components/ResultList";
 import SearchForms from "../components/SearchForms";
+import SaveBtn from "../components/SaveBtn";
 
 
 class Articles extends Component {
@@ -40,14 +42,14 @@ class Articles extends Component {
 
   saveArticles = id => {
     console.log("saving Article")
-    API.saveArticle(id)
+    API.saveArticles(id)
       .then(res => this.loadArticles())
       .catch(err => console.log(err));
   };
 
   // saveArticles = id => {
   //   const article = this.state.articles.find(article =>
-  //     article._API.saveArticle(articles).then(res => this.getArticles()));  
+  //     article._id.API.saveArticle(article).then(res => this.loadArticles()));  
   // };
 
 
@@ -103,46 +105,24 @@ class Articles extends Component {
           {this.state.articles.length ? (
             <ResultList>
               {this.state.articles.map(article => (
-               
-                  <Results
-                  key={article._id}
-                    _id={article._id}
-                    title={article.headline.main}
-                    date={article.pub_date}
-                    url={article.web_url}
-                    // snippet={article.snippet}
-                    handleSaveButton={this.handleSaveButton}
-                  />
+
+                <Results>
+                  
+                  _id={this.articles._id}
+                  title={articles.headline.main}
+                  date={articles.pub_date}
+                  url={articles.web_url}
+                  <SaveBtn>onClick={() => this.saveArticles(_id)}</SaveBtn> 
+                  </Results>
                 )
               )}
-              </ResultList>
-              ) : ( 
-                <h3>No Results to Display</h3>
-              )} 
-)}
-        </div>
-        {/* <div>
-        <h1>Saved Articles</h1>
-        <div>
-          {this.state.articles.length ? (
-            <List>
-              {this.state.articles.map(article => (
-                <ListItem key={article._id}>
-                  <Link to={article.url} >
-                    <strong>
-                      {article.title}
-                    </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteArticles(article._id)} />
-                </ListItem>
-              ))}
-            </List>
+            </ResultList>
           ) : (
-              
+              <h3>No Results to Display</h3>
             )}
-          };
-            </div> */}
-        {/* </div> */}
+          )}
+        </div>
+
         )</div >
     )
   };

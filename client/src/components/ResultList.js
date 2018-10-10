@@ -6,7 +6,8 @@ const ResultList = ({ children }) => {
     <div class="card">
       <div className="card-body">
         <ul className="list-group">
-          {children}</ul>
+          {children}
+          </ul>
       </div>
     </div>
   );
