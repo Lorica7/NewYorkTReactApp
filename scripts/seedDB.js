@@ -11,7 +11,7 @@
 // // const articleSeed = [ 
 //     title: "New York Times Article",
 //     url: "link",
-//     datePub: Date,
+//     datePub: 10/02/18
 //     notes: "words"
 // ]
  

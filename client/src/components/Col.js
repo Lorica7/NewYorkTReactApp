@@ -8,23 +8,3 @@ export const Col = ({ size, children }) => (
 
 export default Col;
 
-
-// movie notes
-
-// methods for the NYT controller
-
-module.exports = {
-
- 
-
-
-
-
-
-
-
-
-
-
-
-}

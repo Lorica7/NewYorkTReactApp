@@ -18,8 +18,7 @@ class Articles extends Component {
       articles: [],
       saved: [],
       search: "",
-      startYear: "",
-      endYear: ""
+      
     };
   }
   componentDidMount = () => {
@@ -34,11 +33,7 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteArticles = id => {
-    API.deleteArticle(id)
-      .then(res => this.loadArticles())
-      .catch(err => console.log(err));
-  };
+
 
   saveArticles = id => {
     console.log("saving Article")
@@ -77,14 +72,11 @@ class Articles extends Component {
   searchArticles = () => {
     API.search({
       search: this.state.search,
-      startYear: this.state.startYear,
-      endYear: this.state.endYear
+     
     })
       .then(res => this.setState({
-        articles: res.data,
-        alert: !res.data.length
-          ? "No Articles Found" : ""
-      })
+        articles: res.data.response.docs
+      }), console.log(this.state)
       ).catch(err => console.log(err));
   };
 
@@ -108,11 +100,11 @@ class Articles extends Component {
 
                 <Results>
                   
-                  _id={this.articles._id}
-                  title={articles.headline.main}
-                  date={articles.pub_date}
-                  url={articles.web_url}
-                  <SaveBtn>onClick={() => this.saveArticles(_id)}</SaveBtn> 
+                  _id={article._id}
+                  title={article.headline.main}
+                  date={article.pub_date}
+                  url={article.web_url}
+                  <SaveBtn>onClick={() => this.saveArticles(this.article._id)}</SaveBtn> 
                   </Results>
                 )
               )}

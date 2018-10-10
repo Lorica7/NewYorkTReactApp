@@ -6,14 +6,8 @@ export default {
 
  
 search: function(query) {
-  axios.get(BASEURL + query + "&api-key=" + APIKEY)
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-    
+ return axios.get(BASEURL + query + "&api-key=" + APIKEY)
+  
   },
 
   getArticles: function () {
