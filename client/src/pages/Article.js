@@ -21,23 +21,23 @@ class Articles extends Component {
       
     };
   }
-  componentDidMount = () => {
-    this.loadArticles();
-  }
+  // componentDidMount = () => {
+  //   this.loadArticles();
+  // }
 
-  loadArticles = () => {
-    API.getArticles()
-      .then(res =>
-        this.setState({ saved: res.data })
-      )
-      .catch(err => console.log(err));
-  };
+  // loadArticles = () => {
+  //   API.getArticles()
+  //     .then(res =>
+  //       this.setState({ saved: res.data })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
 
 
-  saveArticles = id => {
+  saveArticles = (title, date, url) => {
     console.log("saving Article")
-    API.saveArticles(id)
+    API.saveArticles({ title, date,url})
       .then(res => this.loadArticles())
       .catch(err => console.log(err));
   };
@@ -69,6 +69,10 @@ class Articles extends Component {
   //     .catch(err => console.log(err));
   // };
 
+  componentDidMount = () => {
+    this.searchArticles();
+  }
+
   searchArticles = () => {
     API.search({
       search: this.state.search,
@@ -97,22 +101,15 @@ class Articles extends Component {
           {this.state.articles.length ? (
             <ResultList>
               {this.state.articles.map(article => (
-
-                <Results>
-                  
-                  _id={article._id}
-                  title={article.headline.main}
-                  date={article.pub_date}
-                  url={article.web_url}
-                  <SaveBtn>onClick={() => this.saveArticles(this.article._id)}</SaveBtn> 
+                 <Results key={article._id} id={article._id} date={article.pub_date}>
+                    <a href={article.web_url}>{article.headline.main}</a>
+                  <SaveBtn onClick={() => this.saveArticle(article.headline.main, article.pub_date, article.web_url)}/>
                   </Results>
-                )
+                ))}
+                </ResultList>
+              ) : (
+                <h3>No Results Search Results to Display</h3>
               )}
-            </ResultList>
-          ) : (
-              <h3>No Results to Display</h3>
-            )}
-          )}
         </div>
 
         )</div >
