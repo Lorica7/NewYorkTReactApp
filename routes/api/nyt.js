@@ -1,12 +1,12 @@
 
-const nytController = require("../../controllers/nytController");
-const router = require("express").Router();
+// const nytController = require("../../controllers/nytController");
+// const router = require("express").Router();
 
 
-//answer version
+// //answer version
 
-router
-    .route("/api/nyt")
-    .get(nytController.searchArticles);
+// router
+//     .route("/api/nyt")
+//     .get(nytController.searchArticles);
 
-module.exports = router;
+// module.exports = router;

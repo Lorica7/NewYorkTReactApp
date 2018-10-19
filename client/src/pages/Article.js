@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-
-// importing components // 
-
 import Results from "../components/Results";
 import Header from "../components/Header";
+import Input from "../components/Input"
 import ResultList from "../components/ResultList";
-import SearchForms from "../components/SearchForms";
 import SaveBtn from "../components/SaveBtn";
 
 
@@ -18,11 +15,11 @@ class Articles extends Component {
       articles: [],
       saved: [],
       search: "",
-      
+
     };
   }
   // componentDidMount = () => {
-  //   this.loadArticles();
+  //   this.searchArticles();
   // }
 
   // loadArticles = () => {
@@ -37,7 +34,7 @@ class Articles extends Component {
 
   saveArticles = (title, date, url) => {
     console.log("saving Article")
-    API.saveArticles({ title, date,url})
+    API.saveArticles({ title, date, url })
       .then(res => this.loadArticles())
       .catch(err => console.log(err));
   };
@@ -49,7 +46,7 @@ class Articles extends Component {
 
 
   handleInputChange = event => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     this.setState({
       [name]: value
     })
@@ -69,15 +66,11 @@ class Articles extends Component {
   //     .catch(err => console.log(err));
   // };
 
-  componentDidMount = () => {
-    this.searchArticles();
-  }
 
   searchArticles = () => {
-    API.search({
-      search: this.state.search,
-     
-    })
+    const search = this.state.search
+    API.search(search
+    )
       .then(res => this.setState({
         articles: res.data.response.docs
       }), console.log(this.state)
@@ -88,28 +81,62 @@ class Articles extends Component {
     return (
       <div>
         <Header />
-        <SearchForms
-          handleInputChange={this.handleInputChange}
-          search={this.state.search}
-          startYear={this.state.startYear}
-          endYear={this.state.endYear}
-          handleFormSubmit={this.handleFormSubmit}
-
-        />
+        <div className="card">
+          <div className="card-body">
+            <form>
+              <div className="form-group">
+                <label htmlFor="search">Search:</label>
+                <Input
+                  onChange={this.handleInputChange}
+                  value={this.state.search}
+                  name="search"
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Topic"
+                 
+                 />
+                  <br />
+                    <Input
+                        onChange={this.handleInputChange}
+                        value={this.state.startYear}
+                        name="startYear"
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="Start Year"
+                        
+                    />
+                    <Input
+                        onChange={this.handleInputChange}
+                        value={this.state.endYear}
+                        name="endYear"
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="End Year"
+                      
+                    />
+                <button
+                  onClick={this.handleFormSubmit}
+                  className="btn btn-info">
+                  Search
+                    </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <div>
           {this.state.articles.length ? (
             <ResultList>
               {this.state.articles.map(article => (
-                 <Results key={article._id} id={article._id} date={article.pub_date}>
-                    <a href={article.web_url}>{article.headline.main}</a>
-                  <SaveBtn onClick={() => this.saveArticle(article.headline.main, article.pub_date, article.web_url)}/>
-                  </Results>
-                ))}
-                </ResultList>
-              ) : (
-                <h3>No Results Search Results to Display</h3>
-              )}
+                <Results key={article._id} id={article._id} date={article.pub_date}>
+                  <a href={article.web_url}>{article.headline.main}</a>
+                  <SaveBtn onClick={() => this.saveArticle(article.headline.main, article.pub_date, article.web_url)} />
+                </Results>
+              ))}
+            </ResultList>
+          ) : (
+              <h3>No Results Search Results to Display</h3>
+            )}
         </div>
 
         )</div >
