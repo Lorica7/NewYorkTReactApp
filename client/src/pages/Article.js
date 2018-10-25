@@ -15,7 +15,8 @@ class Articles extends Component {
       articles: [],
       saved: [],
       search: "",
-
+      startYear: "",
+      endYear: ""
     };
   }
   // componentDidMount = () => {
@@ -39,11 +40,6 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-  // saveArticles = id => {
-  //   const article = this.state.articles.find(article =>
-  //     article._id.API.saveArticle(article).then(res => this.loadArticles()));  
-  // };
-
 
   handleInputChange = event => {
     const { name, value } = event.target
@@ -54,28 +50,19 @@ class Articles extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
+    // const {search, startYear, endYear} = this.state
     this.searchArticles();
   };
 
-
-  // searchTopics = search => {
-  //   console.log("Searching!!!")
-  //   console.log(this.state.search)
-  //    API.search(search)
-  //     .then(res => this.setState({ articles: res.data }))
-  //     .catch(err => console.log(err));
-  // };
-
-
   searchArticles = () => {
-    const search = this.state.search
-    API.search(search
-    )
-      .then(res => this.setState({
-        articles: res.data.response.docs
+    const {search, startYear, endYear} = this.state
+    API.search(search, startYear, endYear)
+      .then( data => this.setState({
+        articles: data.data.response.docs
       }), console.log(this.state)
       ).catch(err => console.log(err));
   };
+
 
   render() {
     return (
